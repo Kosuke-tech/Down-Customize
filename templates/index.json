@@ -109,6 +109,8 @@
         "show_view_all": true,
         "view_all_style": "solid",
         "color_scheme": "scheme-1",
+        "show_ranking": true,
+        "ranking_badge_pleced": "bottom_left",
         "image_ratio": "adapt",
         "image_shape": "default",
         "show_secondary_image": true,
