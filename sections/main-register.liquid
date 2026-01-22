@@ -12,9 +12,6 @@
       padding-bottom: {{ section.settings.padding_bottom }}px;
     }
   }
-  .c_accepts_marketing {
-    margin-top: 20px;
-  }
 {%- endstyle -%}
 
 <div class="customer register section-{{ section.id }}-padding">
@@ -47,21 +44,6 @@
     <div class="field">
       <input
         type="text"
-        name="customer[last_name]"
-        id="RegisterForm-LastName"
-        {% if form.last_name %}
-          value="{{ form.last_name }}"
-        {% endif %}
-        autocomplete="family-name"
-        placeholder="{{ 'customer.register.last_name' | t }}"
-      >
-      <label for="RegisterForm-LastName">
-        {{ 'customer.register.last_name' | t }}
-      </label>
-    </div>
-    <div class="field">
-      <input
-        type="text"
         name="customer[first_name]"
         id="RegisterForm-FirstName"
         {% if form.first_name %}
@@ -74,40 +56,20 @@
         {{ 'customer.register.first_name' | t }}
       </label>
     </div>
-    {% comment %}
-      <div class="field">
-        <input
-          type="date"
-          name="customer[note] {{ 'custom.register.birthday' | t }}"
-          id="RegisterForm-Birthday"
-          autocomplete="Birthday"
-        >
-        <label for="RegisterForm-Birthday">
-          {{ 'custom.register.birthday' | t }}
-        </label>
-      </div>
-    {% endcomment %}
     <div class="field">
-      <select
-        name="customer[tags]"
-        id="RegisterForm-Birthday"
-        autocomplete="bday-month"
-        aria-label="{{ 'custom.register.birthday_month' | t }}"
+      <input
+        type="text"
+        name="customer[last_name]"
+        id="RegisterForm-LastName"
+        {% if form.last_name %}
+          value="{{ form.last_name }}"
+        {% endif %}
+        autocomplete="family-name"
+        placeholder="{{ 'customer.register.last_name' | t }}"
       >
-        <option hidden>{{ 'custom.register.birthday_month_placeholder' | t }}</option>
-        <option value="1月">{{ 'custom.register.birthday_month_1' | t }}</option>
-        <option value="2月">{{ 'custom.register.birthday_month_2' | t }}</option>
-        <option value="3月">{{ 'custom.register.birthday_month_3' | t }}</option>
-        <option value="4月">{{ 'custom.register.birthday_month_4' | t }}</option>
-        <option value="5月">{{ 'custom.register.birthday_month_5' | t }}</option>
-        <option value="6月">{{ 'custom.register.birthday_month_6' | t }}</option>
-        <option value="7月">{{ 'custom.register.birthday_month_7' | t }}</option>
-        <option value="8月">{{ 'custom.register.birthday_month_8' | t }}</option>
-        <option value="9月">{{ 'custom.register.birthday_month_9' | t }}</option>
-        <option value="10月">{{ 'custom.register.birthday_month_10' | t }}</option>
-        <option value="11月">{{ 'custom.register.birthday_month_11' | t }}</option>
-        <option value="12月">{{ 'custom.register.birthday_month_12' | t }}</option>
-      </select>
+      <label for="RegisterForm-LastName">
+        {{ 'customer.register.last_name' | t }}
+      </label>
     </div>
     <div class="field">
       <input
@@ -165,17 +127,6 @@
         {{ form.errors.messages.password }}.
       </span>
     {%- endif -%}
-    <div class="c_accepts_marketing">
-      <label for="">
-        <input
-          type="checkbox"
-          name="customer[accepts_marketing]"
-          value="true"
-          checked
-        >
-        {{ 'custom.register.accepts_marketing' | t }}
-      </label>
-    </div>
     <button>
       {{ 'customer.register.submit' | t }}
     </button>

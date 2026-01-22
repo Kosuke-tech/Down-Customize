@@ -25,63 +25,17 @@
 {%- endif -%}
 
 {%- style -%}
-      .section-{{ section.id }}-padding {
-        padding-top: {{ section.settings.padding_top | times: 0.75 | round: 0 }}px;
-        padding-bottom: {{ section.settings.padding_bottom | times: 0.75 | round: 0 }}px;
-      }
-
-      @media screen and (min-width: 750px) {
-        .section-{{ section.id }}-padding {
-          padding-top: {{ section.settings.padding_top }}px;
-          padding-bottom: {{ section.settings.padding_bottom }}px;
-        }
-      }
-
-    .c_ranking-badge {
-      position: absolute;
-      z-index: 2;
-      padding: 5px 10px;
-      font-weight: bold;
-      font-size: 14px;
-      border-radius: 4px;
-    }
-
-    .c_ranking-badge--top_right {
-    top: 10px;
-    right: 10px;
+  .section-{{ section.id }}-padding {
+    padding-top: {{ section.settings.padding_top | times: 0.75 | round: 0 }}px;
+    padding-bottom: {{ section.settings.padding_bottom | times: 0.75 | round: 0 }}px;
   }
 
-  .c_ranking-badge--bottom_right {
-    bottom: 10px;
-    right: 10px;
+  @media screen and (min-width: 750px) {
+    .section-{{ section.id }}-padding {
+      padding-top: {{ section.settings.padding_top }}px;
+      padding-bottom: {{ section.settings.padding_bottom }}px;
+    }
   }
-
-  .c_ranking-badge--top_left {
-    top: 10px;
-    left: 10px;
-  }
-
-  .c_ranking-badge--bottom_left {
-    bottom: 70px;
-    left: 10px;
-  }
-
-    .c_rank-1 {
-      background-color: #FFD700;
-    }
-
-    .c_rank-2 {
-      background-color: #C0C0C0;
-    }
-
-    .c_rank-3 {
-      background-color: #CD7F32;
-    }
-
-    .c_rank-other {
-      background-color: #000;
-      color: #FFF;
-    }
 {%- endstyle -%}
 
 {%- liquid
@@ -153,38 +107,6 @@
                   style="--animation-order: {{ forloop.index }};"
                 {% endif %}
               >
-                {% if section.settings.show_ranking %}
-                  {% case forloop.index %}
-                    {% when 1 %}
-                      <span
-                        class="c_ranking-badge c_ranking-badge--{% if section.settings.ranking_badge_pleced %}{{ section.settings.ranking_badge_pleced }}{% endif %} c_rank-{{ forloop.index }}"
-                      >
-                        {{ 'custom.badge.ranking' | t -}}
-                        {{- forloop.index }}
-                      </span>
-                    {% when 2 %}
-                      <span
-                        class="c_ranking-badge c_ranking-badge--{% if section.settings.ranking_badge_pleced %}{{ section.settings.ranking_badge_pleced }}{% endif %} c_rank-{{ forloop.index }}"
-                      >
-                        {{ 'custom.badge.ranking' | t -}}
-                        {{ forloop.index }}
-                      </span>
-                    {% when 3 %}
-                      <span
-                        class="c_ranking-badge c_ranking-badge--{% if section.settings.ranking_badge_pleced %}{{ section.settings.ranking_badge_pleced }}{% endif %} c_rank-{{ forloop.index }}"
-                      >
-                        {{ 'custom.badge.ranking' | t -}}
-                        {{ forloop.index }}
-                      </span>
-                    {% else %}
-                      <span
-                        class="c_ranking-badge c_ranking-badge--{% if section.settings.ranking_badge_pleced %}{{ section.settings.ranking_badge_pleced }}{% endif %} c_rank-other"
-                      >
-                        {{ 'custom.badge.ranking' | t -}}
-                        {{ forloop.index }}
-                      </span>
-                  {% endcase %}
-                {% endif %}
                 {% render 'card-product',
                   card_product: product,
                   media_aspect_ratio: section.settings.image_ratio,
@@ -203,12 +125,7 @@
         {%- else -%}
           {%- for i in (1..section.settings.columns_desktop) -%}
             <li
-              class="
-                grid__item
-                {% if settings.animations_reveal_on_scroll %}
-                 scroll-trigger animate--slide-in
-                 {% endif %}
-              "
+              class="grid__item{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--slide-in{% endif %}"
               {% if settings.animations_reveal_on_scroll %}
                 data-cascade
                 style="--animation-order: {{ forloop.index }};"
@@ -307,11 +224,11 @@
       "step": 1,
       "default": 4,
       "label": "t:sections.featured-collection.settings.products_to_show.label"
-    },
+    },     
     {
       "type": "header",
       "content": "t:sections.featured-collection.settings.header_text.content"
-    },
+    },   
     {
       "type": "inline_richtext",
       "id": "title",
@@ -355,7 +272,7 @@
       "type": "checkbox",
       "id": "show_description",
       "label": "t:sections.featured-collection.settings.show_description.label",
-      "default": false
+      "default": false   
     },
     {
       "type": "select",
@@ -380,7 +297,7 @@
     {
       "type": "header",
       "content": "t:sections.featured-collection.settings.header_collection.content"
-    },
+    },    
     {
       "type": "range",
       "id": "columns_desktop",
@@ -390,7 +307,7 @@
       "default": 4,
       "label": "t:sections.featured-collection.settings.columns_desktop.label"
     },
-    {
+        {
       "type": "checkbox",
       "id": "enable_desktop_slider",
       "label": "t:sections.featured-collection.settings.enable_desktop_slider.label",
@@ -428,7 +345,7 @@
         }
       ],
       "default": "solid"
-    },
+    }, 
     {
       "type": "color_scheme",
       "id": "color_scheme",
@@ -436,37 +353,6 @@
       "info": "t:sections.all.colors.has_cards_info",
       "default": "scheme-1"
     },
-    {
-      "type": "checkbox",
-      "id": "show_ranking",
-      "label": "ランキングラベルを表示",
-      "default": false
-    },
-    {
-      "type": "select",
-      "id": "ranking_badge_pleced",
-      "default": "top_left",
-      "label": "ランキングバッジの位置",
-      "options": [
-        {
-          "value": "top_right",
-          "label": "右上"
-        },
-        {
-          "value": "bottom_right",
-          "label": "右下"
-        },
-        {
-          "value": "top_left",
-          "label": "左上"
-        },
-        {
-          "value": "bottom_left",
-          "label": "左下"
-        }
-      ]
-    },
-
     {
       "type": "header",
       "content": "t:sections.featured-collection.settings.header.content"
@@ -589,13 +475,13 @@
           "label": "t:sections.featured-collection.settings.columns_mobile.options__2.label"
         }
       ]
-    },
+    },    
     {
       "type": "checkbox",
       "id": "swipe_on_mobile",
       "default": false,
       "label": "t:sections.featured-collection.settings.swipe_on_mobile.label"
-    },
+    },          
     {
       "type": "header",
       "content": "t:sections.all.padding.section_padding_heading"
