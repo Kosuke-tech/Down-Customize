@@ -76,6 +76,9 @@
         "text_MyqjeR",
         "button_bJRnR3"
       ],
+      "custom_css": [
+        "h2 {}"
+      ],
       "name": "t:sections.image-with-text.presets.name",
       "settings": {
         "image": "shopify://shop_images/blog-2.png",
