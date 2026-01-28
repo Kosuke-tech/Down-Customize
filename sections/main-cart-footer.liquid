@@ -4,16 +4,29 @@
 {{ 'component-discounts.css' | asset_url | stylesheet_tag }}
 
 {%- style -%}
-  .section-{{ section.id }}-padding {
-    padding-top: {{ section.settings.padding_top | times: 0.75 | round: 0 }}px;
-    padding-bottom: {{ section.settings.padding_bottom | times: 0.75 | round: 0 }}px;
+    .section-{{ section.id }}-padding {
+      padding-top: {{ section.settings.padding_top | times: 0.75 | round: 0 }}px;
+      padding-bottom: {{ section.settings.padding_bottom | times: 0.75 | round: 0 }}px;
+    }
+
+    @media screen and (min-width: 750px) {
+      .section-{{ section.id }}-padding {
+        padding-top: {{ section.settings.padding_top }}px;
+        padding-bottom: {{ section.settings.padding_bottom }}px;
+      }
+    }
+
+    .cart__check {
+    display: none;
+    background-color: #fff8e1;
+    padding: 12px;
+    border-radius: 4px;
+    margin-bottom: 15px;
+    border: 1px solid #ffd54f;
   }
 
-  @media screen and (min-width: 750px) {
-    .section-{{ section.id }}-padding {
-      padding-top: {{ section.settings.padding_top }}px;
-      padding-bottom: {{ section.settings.padding_bottom }}px;
-    }
+  .cart__check.is-active {
+    display: block;
   }
 {%- endstyle -%}
 
@@ -104,6 +117,10 @@
                     {%- endif -%}
                   {%- endif -%}
                 </small>
+              </div>
+              <div class="cart__check">
+                <input type="checkbox" id="cart_check">
+                <label for="cart_check"> 特定の商品が含まれていますが、お間違いありませんか？ </label>
               </div>
             {%- else -%}
               <div class="cart__ctas" {{ block.shopify_attributes }}>
@@ -208,13 +225,68 @@
       });
   }
 
+  function updateSpecialTypeCheck() {
+    // 特定の商品タイプとそれに対応するメッセージ
+    const SPECIAL_PRODUCT_TYPES = {
+      酒類: '※酒類が含まれています。20歳以上であることをご確認ください。',
+      医薬品: '※医薬品が含まれています。使用上の注意をご確認ください。',
+    };
+
+    const cartCheckDiv = document.querySelector('.cart__check');
+    const cartCheckInput = document.getElementById('cart_check');
+    const cartCheckLabel = cartCheckDiv ? cartCheckDiv.querySelector('label') : null;
+    const checkoutBtn = document.getElementById('checkout');
+
+    if (!cartCheckDiv || !cartCheckInput || !checkoutBtn || !cartCheckLabel) return;
+
+    fetch('/cart.js')
+      .then((response) => response.json())
+      .then((cart) => {
+        // 特別な商品タイプを取得
+        const foundProductTypes = new Set();
+
+        for (const item of cart.items) {
+          if (item.product_type && Object.keys(SPECIAL_PRODUCT_TYPES).includes(item.product_type)) {
+            foundProductTypes.add(item.product_type);
+          }
+        }
+
+        if (foundProductTypes.size > 0) {
+          // 見つかったすべての商品タイプのメッセージ
+          const messages = Array.from(foundProductTypes).map((type) => SPECIAL_PRODUCT_TYPES[type]);
+
+          // メッセージを設定
+          cartCheckLabel.innerHTML = '以下の商品が含まれていますが、お間違いありませんか？' + messages.join('<br>');
+
+          // ★ クラスで表示切り替え
+          cartCheckDiv.classList.add('is-active');
+
+          if (!cartCheckInput.checked) {
+            checkoutBtn.disabled = true;
+          }
+
+          cartCheckInput.onchange = () => {
+            checkoutBtn.disabled = !cartCheckInput.checked;
+          };
+        } else {
+          // ★ クラスで非表示
+          cartCheckDiv.classList.remove('is-active');
+          checkoutBtn.disabled = false;
+          cartCheckInput.checked = false;
+          cartCheckInput.onchange = null;
+        }
+      });
+  }
+
   updateFreeShippingMessage();
+  updateSpecialTypeCheck();
 
   // カートfooter監視（Ajaxカート対応）
   const cartFooter = document.getElementById('main-cart-footer');
   if (cartFooter) {
     const observer = new MutationObserver(() => {
       updateFreeShippingMessage();
+      updateSpecialTypeCheck();
     });
     observer.observe(cartFooter, { childList: true, subtree: true });
   }
