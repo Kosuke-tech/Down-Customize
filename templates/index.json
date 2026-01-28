@@ -9,6 +9,41 @@
  */
 {
   "sections": {
+    "generate_blocks_tV6ggB": {
+      "type": "generate-blocks",
+      "blocks": {
+        "ai_gen_block_b8d390a_VUh8fy": {
+          "type": "ai_gen_block_b8d390a",
+          "settings": {
+            "content": "<p>Use this text to share information about your brand with your customers. Describe a product, share announcements, or welcome customers to your store.</p>",
+            "desktop_width_percent": 100,
+            "mobile_width_percent": 100,
+            "max_width": 800,
+            "text_alignment": "left",
+            "padding_top": 40,
+            "padding_bottom": 40,
+            "padding_horizontal": 20,
+            "font_size": 16,
+            "line_height": 1.6,
+            "background_color": "#ffffff",
+            "text_color": "#000000",
+            "heading_color": "#000000",
+            "link_color": "#00b0b0",
+            "link_hover_color": "#008080"
+          },
+          "blocks": {}
+        }
+      },
+      "block_order": [
+        "ai_gen_block_b8d390a_VUh8fy"
+      ],
+      "name": "Custom：Generate-Blocks",
+      "settings": {
+        "color_scheme": "",
+        "padding_top": 40,
+        "padding_bottom": 52
+      }
+    },
     "c_search_iUPWjp": {
       "type": "c_search",
       "name": "Custom：Suggest Search",
@@ -271,6 +306,7 @@
     }
   },
   "order": [
+    "generate_blocks_tV6ggB",
     "c_search_iUPWjp",
     "image_banner",
     "image_with_text_qfABTq",
