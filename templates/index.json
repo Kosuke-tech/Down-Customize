@@ -9,6 +9,22 @@
  */
 {
   "sections": {
+    "c_search_iUPWjp": {
+      "type": "c_search",
+      "name": "Custom：Suggest Search",
+      "settings": {
+        "tags_list": "test,test2",
+        "bk_color": "#ffffff",
+        "color": "#00b0b0",
+        "radius": 4,
+        "hover_color": "#f3f3f3",
+        "hover_bk_color": "#000000",
+        "hover_opacity": 0.6,
+        "color_scheme": "",
+        "padding_top": 40,
+        "padding_bottom": 52
+      }
+    },
     "image_banner": {
       "type": "image-banner",
       "blocks": {
@@ -255,6 +271,7 @@
     }
   },
   "order": [
+    "c_search_iUPWjp",
     "image_banner",
     "image_with_text_qfABTq",
     "featured_collection",
